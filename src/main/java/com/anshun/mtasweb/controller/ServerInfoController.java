@@ -23,24 +23,90 @@ public class ServerInfoController {
     @Resource
     private ServerInfoService serverInfoService;
 
-    @RequestMapping(value = "index", method = {RequestMethod.GET})
+    @RequestMapping(value = "index", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("module/server/serverInfo/index.html");
         modelAndView.addObject("title", "hello,this is serverInfo");
         return modelAndView;
     }
 
-    @RequestMapping(value = "getInfo.json", method = {RequestMethod.POST})
+    @RequestMapping(value = "getInfo.json", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ResultMsg getInfo() {
         List<ServerInfoEntity> serverInfo = serverInfoService.getServerInfo();
-        serverInfo.add(serverInfo.get(0));
-        serverInfo.add(serverInfo.get(0));
-        serverInfo.add(serverInfo.get(0));
-        serverInfo.add(serverInfo.get(0));
         PageInfo<ServerInfoEntity> pageInfo = new PageInfo<>(serverInfo);
         ResultMsg resultMsg = new ResultMsg();
         resultMsg.setData(pageInfo);
         return resultMsg;
+    }
+
+    /**
+     * 进入新增页面
+     *
+     * @return
+     */
+
+    @RequestMapping(value = "add.html", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView add() {
+        ModelAndView view = new ModelAndView("module/server/serverInfo/add.html");
+        return view;
+    }
+
+    /**
+     * 添加操作
+     *
+     * @param bean
+     * @return
+     */
+
+    @RequestMapping(value = "add.do", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResultMsg add(ServerInfoEntity bean) {
+        serverInfoService.addServerInfo(bean);
+        ResultMsg result = new ResultMsg();
+        return result;
+    }
+
+    /**
+     * 添加操作
+     *
+     * @param bean
+     * @return
+     */
+
+    @RequestMapping(value = "edit.html", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ModelAndView edit(ServerInfoEntity bean) {
+        ModelAndView view = new ModelAndView("module/server/serverInfo/edit.html");
+        return view;
+    }
+
+    /**
+     * 添加操作
+     *
+     * @param bean
+     * @return
+     */
+
+    @RequestMapping(value = "edit.do", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResultMsg update(ServerInfoEntity bean) {
+        serverInfoService.updateServerInfo(bean);
+        ResultMsg result = new ResultMsg();
+        return result;
+    }
+
+    /**
+     * 删除操作
+     *
+     * @return
+     */
+
+    @RequestMapping(value = "delete.do", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResultMsg delete(ServerInfoEntity serverInfo) {
+        serverInfoService.deleteServerInfo(serverInfo.getId());
+        ResultMsg result = new ResultMsg();
+        return result;
     }
 }

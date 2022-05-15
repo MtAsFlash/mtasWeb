@@ -1,6 +1,5 @@
 package com.anshun.mtasweb.service.impl;
 
-import com.anshun.mtasweb.dao.BaseDao;
 import com.anshun.mtasweb.dao.ServerInfoDao;
 import com.anshun.mtasweb.entity.ServerInfoEntity;
 import com.anshun.mtasweb.service.ServerInfoService;
@@ -17,12 +16,24 @@ public class ServerInfoServiceImpl implements ServerInfoService {
     @Resource
     private ServerInfoDao serverInfoDao;
 
-    @Resource
-    private BaseDao baseDao;
-
     @Override
     public List<ServerInfoEntity> getServerInfo() {
         List<ServerInfoEntity> serverInfoList = serverInfoDao.queryList(null);
         return serverInfoList;
+    }
+
+    @Override
+    public void addServerInfo(ServerInfoEntity serverInfo) {
+        serverInfoDao.save(serverInfo);
+    }
+
+    @Override
+    public void deleteServerInfo(Integer id) {
+        serverInfoDao.delete(id);
+    }
+
+    @Override
+    public void updateServerInfo(ServerInfoEntity bean) {
+        serverInfoDao.update(bean);
     }
 }
