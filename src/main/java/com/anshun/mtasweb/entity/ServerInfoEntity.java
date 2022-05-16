@@ -2,14 +2,16 @@ package com.anshun.mtasweb.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * @author mtasflash Created on 2022-05-06 12:12
  */
 @Data
-public class ServerInfoEntity {
+public class ServerInfoEntity implements Serializable {
+
+    private static final long serialVersionUID = -2985135228106128915L;
     /**
      * 主键
      */

@@ -13,13 +13,13 @@ import java.util.List;
  */
 @Service
 public class ServerInfoServiceImpl implements ServerInfoService {
+
     @Resource
     private ServerInfoDao serverInfoDao;
 
     @Override
     public List<ServerInfoEntity> getServerInfo() {
-        List<ServerInfoEntity> serverInfoList = serverInfoDao.queryList(null);
-        return serverInfoList;
+        return serverInfoDao.queryList(null);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ServerInfoServiceImpl implements ServerInfoService {
     }
 
     @Override
-    public void updateServerInfo(ServerInfoEntity bean) {
-        serverInfoDao.update(bean);
+    public void updateServerInfo(ServerInfoEntity serverInfo) {
+        serverInfoDao.update(serverInfo);
     }
 }

@@ -24,19 +24,6 @@
 </head>
 
 <body>
-<div class="layui-container">
-    <div class="layui-progress" style="margin: 15px 0 30px;">
-        <div class="layui-progress-bar" lay-percent="100%"></div>
-    </div>
-    <div class="layui-text">
-        <span th:text="${title}" style="font-size: 20px">
-        </span>
-    </div>
-    <div class="layui-btn-container">
-        <button class="layui-btn" test-active="test-form">一个按钮</button>
-        <button class="layui-btn layui-btn-normal" id="test2">当前日期</button>
-    </div>
-</div>
 <div>
     <div class="layui-fluid">
         <div class="layui-row layui-col-space1">
@@ -55,10 +42,10 @@
                         <p type="numbers" title="#"/>
                         <p field="id" title="ID" width="10%"/>
                         <p field="serverName" title="服务名称" width="15%"/>
-                        <p field="serverDesc" title="描述" width="15%"/>
+                        <p field="serverDesc" title="描述" width="15%"></p>
                         <p field="host" title="ip地址" width="15%"/>
                         <p field="port" title="端口" width="15%"/>
-                        <p fixed="right" toolbar="#barDemo" title="操作" width="30%"/>
+                        <p fixed="right" toolbar="#barDemo" title="操作" width="15%"/>
                     </div>
                 </div>
                 <script type="text/html" id="barDemo">

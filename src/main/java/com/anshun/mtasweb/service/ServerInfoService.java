@@ -15,9 +15,24 @@ public interface ServerInfoService {
      */
     List<ServerInfoEntity> getServerInfo();
 
+    /**
+     * 添加服务器信息
+     *
+     * @param serverInfo 服务器信息
+     */
     void addServerInfo(ServerInfoEntity serverInfo);
 
+    /**
+     * 删除服务器信息
+     *
+     * @param id 服务器id
+     */
     void deleteServerInfo(Integer id);
 
-    void updateServerInfo(ServerInfoEntity bean);
+    /**
+     * 更新服务器信息
+     *
+     * @param serverInfo 服务器信息
+     */
+    void updateServerInfo(ServerInfoEntity serverInfo);
 }
