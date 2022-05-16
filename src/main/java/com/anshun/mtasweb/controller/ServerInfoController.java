@@ -23,7 +23,7 @@ public class ServerInfoController {
     @Resource
     private ServerInfoService serverInfoService;
 
-    @RequestMapping(value = "index", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "index.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("module/server/serverInfo/index.html");
         modelAndView.addObject("title", "hello,this is serverInfo");
