@@ -8,27 +8,57 @@
 layui.define(['element',"fsConfig","fsCommon"], function(exports){
 
 	var menuConfig = {
-			dataType : "server" , //获取数据方式，local本地获取，server 服务端获取
-			loadUrl : "/getMenus.json", //加载数据地址
-			method : "post",//请求类型，默认post
-			rootMenuId : 0, //根目录菜单id
-			defaultSelectTopMenuId : 43, //默认选中头部菜单id
-			defaultSelectLeftMenuId : 52, //默认选中左边菜单id
-			menuIdField : "id", //菜单id
-			menuNameField : "name", //菜单名称
-			menuIconField : "icon" , //菜单图标，图标必须用css
-			menuHrefField : "url" , //菜单链接
-			parentMenuIdField : "parentid" ,//父菜单id
-			data : [
-				{"menuId":"1","menuName":"控制台","menuIcon":"fa-cog","menuHref":"","parentMenuId":"0"},
-				{"menuId":"2","menuName":"测试","menuIcon":"","menuHref":"","parentMenuId":"0"},
-				{"menuId":"11","menuName":"案例","menuIcon":"fa-table","menuHref":"","parentMenuId":"1"},
-				{"menuId":"12","menuName":"其他页面","menuIcon":"","menuHref":"","parentMenuId":"1"},
-				{"menuId":"111","menuName":"首页","menuIcon":"&#xe68e;","menuHref":"views/home/index.html","parentMenuId":"11"},
-				{"menuId":"datagrid","menuName":"数据表格","menuIcon":"fa-list","menuHref":"views/datagrid/index.html","parentMenuId":"11"},
-				{"menuId":"datagrid2","menuName":"数据表格2","menuIcon":"fa-list","menuHref":"views/datagrid2/index.html","parentMenuId":"11"},
-				{"menuId":"treeDatagrid","menuName":"树+表格","menuIcon":"fa-list","menuHref":"views/treeDatagrid/index.html","parentMenuId":"11"},
-				{"menuId":"multiDatagrid","menuName":"多数据表格","menuIcon":"fa-list","menuHref":"views/multiDatagrid/index.html","parentMenuId":"11"},
+		dataType: "server", //获取数据方式，local本地获取，server 服务端获取
+		loadUrl: "/getMenus.json", //加载数据地址
+		method: "post",//请求类型，默认post
+		rootMenuId: 0, //根目录菜单id
+		defaultSelectTopMenuId: 43, //默认选中头部菜单id
+		defaultSelectLeftMenuId: 52, //默认选中左边菜单id
+		menuIdField: "id", //菜单id
+		menuNameField: "name", //菜单名称
+		menuIconField: "icon", //菜单图标，图标必须用css
+		menuHrefField: "url", //菜单链接
+		parentMenuIdField: "parentId",//父菜单id
+		data: [
+			{"menuId": "1", "menuName": "控制台", "menuIcon": "fa-cog", "menuHref": "", "parentMenuId": "0"},
+			{"menuId": "2", "menuName": "测试", "menuIcon": "", "menuHref": "", "parentMenuId": "0"},
+			{"menuId": "11", "menuName": "案例", "menuIcon": "fa-table", "menuHref": "", "parentMenuId": "1"},
+			{"menuId": "12", "menuName": "其他页面", "menuIcon": "", "menuHref": "", "parentMenuId": "1"},
+			{
+				"menuId": "111",
+				"menuName": "首页",
+				"menuIcon": "&#xe68e;",
+				"menuHref": "views/home/index.html",
+				"parentMenuId": "11"
+			},
+			{
+				"menuId": "datagrid",
+				"menuName": "数据表格",
+				"menuIcon": "fa-list",
+				"menuHref": "views/datagrid/index.html",
+				"parentMenuId": "11"
+			},
+			{
+				"menuId": "datagrid2",
+				"menuName": "数据表格2",
+				"menuIcon": "fa-list",
+				"menuHref": "views/datagrid2/index.html",
+				"parentMenuId": "11"
+			},
+			{
+				"menuId": "treeDatagrid",
+				"menuName": "树+表格",
+				"menuIcon": "fa-list",
+				"menuHref": "views/treeDatagrid/index.html",
+				"parentMenuId": "11"
+			},
+			{
+				"menuId": "multiDatagrid",
+				"menuName": "多数据表格",
+				"menuIcon": "fa-list",
+				"menuHref": "views/multiDatagrid/index.html",
+				"parentMenuId": "11"
+			},
 				{"menuId":"tabDatagrid","menuName":"tab数据表格","menuIcon":"fa-list","menuHref":"views/tabDatagrid/index.html","parentMenuId":"11"},
 				{"menuId":"complexDatagrid","menuName":"复杂数据表格","menuIcon":"fa-list","menuHref":"views/complexDatagrid/index.html","parentMenuId":"11"},
 				{"menuId":"linkageDatagrid","menuName":"联动数据表格","menuIcon":"fa-list","menuHref":"views/linkageDatagrid/index.html","parentMenuId":"11"},

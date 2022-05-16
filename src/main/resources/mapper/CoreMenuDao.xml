@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anshun.mtasweb.dao.CoreMenuDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.anshun.mtasweb.entity.CoreMenuEntity" id="coreMenuMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="icon" column="icon"/>
+        <result property="menuType" column="menutype"/>
+        <result property="display" column="display"/>
+        <result property="parentId" column="parentid"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="createtime"/>
+        <result property="updateUser" column="updateuser"/>
+        <result property="updateTime" column="updatetime"/>
+        <result property="flag" column="flag"/>
+        <result property="permission" column="permission"/>
+    </resultMap>
+
+    <select id="queryObject" resultMap="coreMenuMap">
+        select *
+        from `core_menu`
+        where id = #{value}
+    </select>
+
+    <select id="queryList" resultMap="coreMenuMap">
+        select * from `core_menu`
+        where 1=1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="name != null and name.trim() != ''">
+            and name = #{name}
+        </if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*)
+        from `core_menu`
+    </select>
+
+    <insert id="save" parameterType="com.anshun.mtasweb.entity.CoreMenuEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into `core_menu`
+        (`name`,
+         `url`,
+         `icon`,
+         `menutype`,
+         `display`,
+         `parentid`,
+         `creator`,
+         `createtime`,
+         `updateuser`,
+         `updatetime`,
+         `flag`,
+         `permission`)
+        values (#{name},
+                #{url},
+                #{icon},
+                #{menutype},
+                #{display},
+                #{parentid},
+                #{creator},
+                #{createtime},
+                #{updateuser},
+                #{updatetime},
+                #{flag},
+                #{permission})
+    </insert>
+
+    <update id="update" parameterType="com.anshun.mtasweb.entity.CoreMenuEntity">
+        update `core_menu`
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="url != null">`url` = #{url},</if>
+            <if test="icon != null">`icon` = #{icon},</if>
+            <if test="menutype != null">`menutype` = #{menutype},</if>
+            <if test="display != null">`display` = #{display},</if>
+            <if test="parentid != null">`parentid` = #{parentid},</if>
+            <if test="creator != null">`creator` = #{creator},</if>
+            <if test="createtime != null">`createtime` = #{createtime},</if>
+            <if test="updateuser != null">`updateuser` = #{updateuser},</if>
+            <if test="updatetime != null">`updatetime` = #{updatetime},</if>
+            <if test="flag != null">`flag` = #{flag},</if>
+            <if test="permission != null">`permission` = #{permission}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from `core_menu`
+        where id = #{value}
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from `core_menu` where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getMenus" resultMap="coreMenuMap">
+        SELECT DISTINCT *
+        FROM `core_menu`
+    </select>
+</mapper>
