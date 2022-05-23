@@ -79,4 +79,21 @@ CREATE TABLE `user`
   COLLATE = utf8mb4_0900_ai_ci
   ROW_FORMAT = Dynamic;
 
+DROP TABLE IF EXISTS `frp_info`;
+CREATE TABLE `frp_info`
+(
+    `id`          int                                                          NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `frp_name`    varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '名称,frp名称也不能冲突',
+    `frp_port`    varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '分配出去的端口',
+    `pc_name`     varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '分配给的PC名称',
+    `frp_desc`    text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci        NULL COMMENT '详细描述或备注',
+    `create_time` datetime                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_time` datetime                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 4
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci
+  ROW_FORMAT = Dynamic;
+
 SET FOREIGN_KEY_CHECKS = 1;
