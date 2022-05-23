@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.anshun'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.11'
+sourceCompatibility = '1.8'
 
 configurations {
     compileOnly {
@@ -34,7 +34,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'mysql:mysql-connector-java:8.0.29'
-    implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'com.zaxxer:HikariCP:4.0.1'
     implementation 'org.mybatis:mybatis:3.5.9'
 
     compileOnly 'org.projectlombok:lombok'
