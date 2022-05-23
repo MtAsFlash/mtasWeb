@@ -1,7 +1,7 @@
 package com.anshun.mtasweb.controller;
 
-import com.anshun.mtasweb.entity.ServerInfoEntity;
-import com.anshun.mtasweb.service.ServerInfoService;
+import com.anshun.mtasweb.entity.FrpInfoEntity;
+import com.anshun.mtasweb.service.FrpInfoService;
 import com.anshun.mtasweb.vo.ResultMsg;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -14,18 +14,19 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @author mtasflash Created on 2022-05-06 14:54
+ * @author mtasflash Created on 2022-05-20 20:07
+ * <p>
+ * frp分配信息,记录分配出去的frp名称/端口/分配给的PC电脑
  */
 @Controller
-@RequestMapping("serverInfo")
-public class ServerInfoController {
-
+@RequestMapping("frpInfo")
+public class FrpInfoController {
     @Resource
-    private ServerInfoService serverInfoService;
+    private FrpInfoService frpInfoService;
 
     @RequestMapping(value = "index.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("module/server/serverInfo/index");
+        ModelAndView modelAndView = new ModelAndView("module/frpInfo/index");
         modelAndView.addObject("title", "hello,this is serverInfo");
         return modelAndView;
     }
@@ -33,8 +34,8 @@ public class ServerInfoController {
     @RequestMapping(value = "getInfo.json", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ResultMsg getInfo() {
-        List<ServerInfoEntity> serverInfo = serverInfoService.getAllData();
-        PageInfo<ServerInfoEntity> pageInfo = new PageInfo<>(serverInfo);
+        List<FrpInfoEntity> serverInfo = frpInfoService.getAllData();
+        PageInfo<FrpInfoEntity> pageInfo = new PageInfo<>(serverInfo);
         ResultMsg resultMsg = new ResultMsg();
         resultMsg.setData(pageInfo);
         return resultMsg;
@@ -46,7 +47,7 @@ public class ServerInfoController {
 
     @RequestMapping(value = "add.html", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView add() {
-        return new ModelAndView("module/server/serverInfo/add");
+        return new ModelAndView("module/frpInfo/add");
     }
 
     /**
@@ -55,8 +56,8 @@ public class ServerInfoController {
 
     @RequestMapping(value = "add.do", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ResultMsg add(ServerInfoEntity request) {
-        serverInfoService.addData(request);
+    public ResultMsg add(FrpInfoEntity request) {
+        frpInfoService.addData(request);
         return new ResultMsg();
     }
 
@@ -67,7 +68,7 @@ public class ServerInfoController {
     @RequestMapping(value = "edit.html", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ModelAndView edit() {
-        return new ModelAndView("module/server/serverInfo/edit");
+        return new ModelAndView("module/frpInfo/edit");
     }
 
     /**
@@ -76,8 +77,8 @@ public class ServerInfoController {
 
     @RequestMapping(value = "edit.do", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ResultMsg update(ServerInfoEntity request) {
-        serverInfoService.updateData(request);
+    public ResultMsg update(FrpInfoEntity request) {
+        frpInfoService.updateData(request);
         return new ResultMsg();
     }
 
@@ -87,8 +88,8 @@ public class ServerInfoController {
 
     @RequestMapping(value = "delete.do", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ResultMsg delete(ServerInfoEntity request) {
-        serverInfoService.deleteData(request.getId());
+    public ResultMsg delete(FrpInfoEntity request) {
+        frpInfoService.deleteData(request.getId());
         return new ResultMsg();
     }
 }

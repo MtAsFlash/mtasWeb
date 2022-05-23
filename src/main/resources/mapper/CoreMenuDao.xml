@@ -28,24 +28,25 @@
 
     <select id="queryList" resultMap="coreMenuMap">
         select * from `core_menu`
-        where 1=1
-        <if test="id != null">
-            and id = #{id}
-        </if>
-        <if test="name != null and name.trim() != ''">
-            and name = #{name}
-        </if>
-        <choose>
-            <when test="sidx != null and sidx.trim() != ''">
-                order by ${sidx} ${order}
-            </when>
-            <otherwise>
-                order by id desc
-            </otherwise>
-        </choose>
-        <if test="offset != null and limit != null">
-            LIMIT #{offset}, #{limit}
-        </if>
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name.trim() != ''">
+                and name = #{name}
+            </if>
+            <choose>
+                <when test="sidx != null and sidx.trim() != ''">
+                    order by ${sidx} ${order}
+                </when>
+                <otherwise>
+                    order by id desc
+                </otherwise>
+            </choose>
+            <if test="offset != null and limit != null">
+                LIMIT #{offset}, #{limit}
+            </if>
+        </where>
     </select>
 
     <select id="queryTotal" resultType="int">

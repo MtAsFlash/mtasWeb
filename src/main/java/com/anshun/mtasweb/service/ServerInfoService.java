@@ -13,26 +13,26 @@ public interface ServerInfoService {
      *
      * @return 服务信息
      */
-    List<ServerInfoEntity> getServerInfo();
+    List<ServerInfoEntity> getAllData();
 
     /**
      * 添加服务器信息
      *
      * @param serverInfo 服务器信息
      */
-    void addServerInfo(ServerInfoEntity serverInfo);
+    void addData(ServerInfoEntity serverInfo);
 
     /**
      * 删除服务器信息
      *
      * @param id 服务器id
      */
-    void deleteServerInfo(Integer id);
+    void deleteData(Integer id);
 
     /**
      * 更新服务器信息
      *
      * @param serverInfo 服务器信息
      */
-    void updateServerInfo(ServerInfoEntity serverInfo);
+    void updateData(ServerInfoEntity serverInfo);
 }

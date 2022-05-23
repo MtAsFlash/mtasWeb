@@ -18,22 +18,22 @@ public class ServerInfoServiceImpl implements ServerInfoService {
     private ServerInfoDao serverInfoDao;
 
     @Override
-    public List<ServerInfoEntity> getServerInfo() {
+    public List<ServerInfoEntity> getAllData() {
         return serverInfoDao.queryList(null);
     }
 
     @Override
-    public void addServerInfo(ServerInfoEntity serverInfo) {
+    public void addData(ServerInfoEntity serverInfo) {
         serverInfoDao.save(serverInfo);
     }
 
     @Override
-    public void deleteServerInfo(Integer id) {
+    public void deleteData(Integer id) {
         serverInfoDao.delete(id);
     }
 
     @Override
-    public void updateServerInfo(ServerInfoEntity serverInfo) {
+    public void updateData(ServerInfoEntity serverInfo) {
         serverInfoDao.update(serverInfo);
     }
 }
