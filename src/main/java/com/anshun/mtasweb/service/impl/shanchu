@@ -1,23 +1,25 @@
-### Enter one VM parameter per line
-### App settings
--Duser.timezone=UTC
+# Enter one VM parameter per line
+# App settings
+#-Duser.timezone=UTC
 #-Djava.net.preferIPv4Stack=true
 #-Djava.util.Arrays.useLegacyMergeSort=true
-### Fix and Debug settings
+-Dlog4j2.contextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+# Fix and Debug settings
 #-Xrunjdwp:transport=dt_socket,address=9790,server=y,suspend=n
-### memory settings
+# memory settings
 -Xms1024M
 -Xmx1024M
+-Xmn256M
 -Xss256K
--XX:MetaspaceSize=192M
+-XX:MetaspaceSize=128M
 -XX:MaxMetaspaceSize=256M
 -XX:InitialBootClassLoaderMetaspaceSize=16M
-### gc settings
+# gc settings
 -XX:+UseG1GC
--XX:MaxGCPauseMillis=100
+-XX:MaxGCPauseMillis=200
 -XX:MaxTenuringThreshold=15
 -XX:InitialTenuringThreshold=7
-### print gc info
+# print gc info
 -XX:+PrintGC
 -XX:+PrintGCID
 -XX:+PrintGCCause
@@ -31,30 +33,22 @@
 -XX:+PrintGCApplicationConcurrentTime
 -XX:+PrintStringDeduplicationStatistics
 -Xloggc:logs/gc_%t_%p.log
-### 开启诊断参数,并且开启JVM的日志打印,影响性能,开发时开启,上线时关闭
+# 开启JVM的日志打印,影响性能,开发时使用,上线需关闭
 -XX:+UnlockDiagnosticVMOptions
 -XX:+LogVMOutput
 -XX:-DisplayVMOutput
 -XX:LogFile=logs/vm_%t_%p.log
-### 开启JVM的SafePoint打印,影响性能,开发时开启,上线时关闭
+# 开启JVM的SafePoint打印,影响性能,开发时使用,上线需关闭
 -XX:+PrintSafepointStatistics
 -XX:PrintSafepointStatisticsCount=1
-### 关闭PerfData,关闭后不能使用jstat.如果出现磁盘IO导致的JVM卡顿,可以尝试关闭PerfData,并且把GC和VM的日志放到内存盘/dev/shm
+# 关闭PerfData, jstat用不了. 如果出现JVM卡顿,可以尝试关闭PerfData,并且把GC和VM的日志放到内存盘/dev/shm
 #-XX:-UsePerfData
 #-XX:+PerfDisableSharedMem
-### others settings
--XX:StringTableSize=300007
+# others settings
+-XX:StringTableSize=2048000
 -XX:+UseStringDeduplication
 -XX:+PrintStringTableStatistics
-### 频繁异常的堆栈信息会被C2编译器优化,提升性能,但是不利于查找错误,开发时关闭,上线时开启
--XX:-OmitStackTraceInFastThrow
-### 开启诊断参数,并且设置定时进入Safepoint的时间为0,这样就不会定时进入Safepoint,提升性能.
--XX:+UnlockDiagnosticVMOptions
--XX:GuaranteedSafepointInterval=0
-### 高并发应用中(使用线程池),同步块会采用偏向锁机制,但是如果产生线程竞争或交替,则需要取消偏向锁,必须进入SafePoint才能取消偏向锁,所以推荐关闭偏向锁,提升性能.
--XX:-UseBiasedLocking
-### 使用此参数可以防止大循环内部的SafePoint被优化省略掉,导致循环完毕才能进入SafePoint.但是此参数在JDK-8上有BUG,会导致JVM Crash,JDK-8161147
-#-XX:+UseCountedLoopSafepoints
 -XX:+PrintFlagsFinal
+-XX:-OmitStackTraceInFastThrow
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath=logs/heapdump.hprof
