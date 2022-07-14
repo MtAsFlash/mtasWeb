@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshun.mtasweb.dao.ServerInfoDao">
+    <resultMap id="ServerInfoMap" type="com.anshun.mtasweb.entity.ServerInfoEntity">
+        <result property="id" column="id"/>
+        <result property="serverName" column="server_name"/>
+        <result property="serverDesc" column="server_desc"/>
+        <result property="host" column="host"/>
+        <result property="port" column="port"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <select id="queryList" resultMap="ServerInfoMap">
+        SELECT * FROM `server_info`
+        <where>
+            <if test="id != null">
+                `id` = #{id}
+            </if>
+            <if test="serverName != null and serverName.trim() != ''">
+                `server_name` = #{serverName}
+            </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.anshun.mtasweb.entity.ServerInfoEntity">
+        INSERT INTO `server_info`(`server_name`, `server_desc`, `host`, `port`)
+        VALUES (#{serverName},
+                #{serverDesc},
+                #{host},
+                #{port})
+    </insert>
+
+    <delete id="delete">
+        DELETE
+        FROM `server_info`
+        WHERE `id` = #{value}
+    </delete>
+
+    <update id="update" parameterType="com.anshun.mtasweb.entity.ServerInfoEntity">
+        update `server_info`
+        <set>
+            <if test="serverName != null">
+                `server_name` = #{serverName},
+            </if>
+            <if test="serverDesc != null">
+                `server_desc` = #{serverDesc},
+            </if>
+            <if test="host != null">
+                `host` = #{host},
+            </if>
+            <if test="port != null">
+                `port` = #{port}
+            </if>
+        </set>
+        where `id` = #{id}
+    </update>
+</mapper>

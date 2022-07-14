@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compileOnly libraries['spring-boot']
+    compileOnly libraries['spring-boot-starter']
+    compileOnly libraries['spring-boot-starter-thymeleaf']
+    compileOnly libraries['spring-boot-starter-web']
+    compileOnly libraries['spring-boot-gradle-plugin']
+    compileOnly libraries['spring-boot-starter-test']
+    compileOnly libraries['pagehelper-spring-boot']
+    compileOnly libraries['pagehelper']
+    compileOnly libraries['commons-lang3']
+    compileOnly libraries['mybatis-spring-boot-starter']
+    compileOnly libraries['mysql-connector']
+    compileOnly libraries['HikariCP']
+    compileOnly libraries['mybatis']
+    compileOnly libraries['lombok']
+    annotationProcessor libraries['lombok']
+}
