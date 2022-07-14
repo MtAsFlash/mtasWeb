@@ -1,4 +1,4 @@
 rootProject.name = 'mtasWeb'
-include 'common'
+include 'mtas-common'
 include 'mtas-web'
 
