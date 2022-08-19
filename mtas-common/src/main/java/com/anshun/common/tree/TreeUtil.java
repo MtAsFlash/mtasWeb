@@ -26,6 +26,7 @@ public class TreeUtil {
             T pNode = map.get(datum.getPid());
             if (pNode != null) {
                 if (!pNode.getChildNode().contains(datum)) {
+                    //TODO:需要优化
                     //避免多次调用重复添加
                     pNode.getChildNode().add(datum);
                 }
