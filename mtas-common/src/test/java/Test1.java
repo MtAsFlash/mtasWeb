@@ -1,9 +1,7 @@
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author mtasflash Created on 2022-08-19 16:02
@@ -23,28 +21,8 @@ public class Test1 {
         }
     }
 
-    public static List<TreeEntity> fun1(List<TreeEntity> data, String id) {
-        List<TreeEntity> tData = new ArrayList<>();
-        for (TreeEntity datum : data) {
-            if (datum.getPId().equals(id)) {
-                tData.add(datum);
-                datum.setChildNode(fun1(data, datum.getId()));
-            }
-        }
-        return tData;
-    }
-
-    public static void fun2(List<TreeEntity> data) {
-        Map<String, List<TreeEntity>> map = new HashMap<>();
-        for (TreeEntity datum : data) {
-            map.computeIfAbsent(datum.getPId(), k -> new ArrayList<>()).add(datum);
-            datum.setChildNode(map.computeIfAbsent(datum.getId(), k -> new ArrayList<>()));
-        }
-    }
-
     public static void main(String[] args) {
-        List<TreeEntity> data = initData();
-        fun2(data);
+        
     }
 
 
