@@ -53,7 +53,6 @@ public class FrpInfoController {
     /**
      * 添加操作
      */
-
     @RequestMapping(value = "add.do", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ResultMsg add(FrpInfoEntity request) {
