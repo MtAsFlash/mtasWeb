@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group 'com.anshun'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    implementation 'cn.hutool:hutool-all:5.8.15'
+
+    implementation libraries['spring-boot']
+    implementation libraries['spring-boot-starter']
+    implementation libraries['spring-boot-gradle-plugin']
+    implementation libraries['spring-boot-starter-test']
+    implementation libraries['commons-lang3']
+    implementation libraries['mybatis-spring-boot-starter']
+    implementation libraries['mysql-connector']
+    implementation libraries['HikariCP']
+    implementation libraries['mybatis']
+    implementation libraries['guava']
+    implementation libraries['hutool']
+    implementation libraries['lombok']
+    annotationProcessor libraries['lombok']
+}
+
+test {
+    useJUnitPlatform()
+}

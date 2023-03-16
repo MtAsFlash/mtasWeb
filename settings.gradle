@@ -1,4 +1,5 @@
 rootProject.name = 'mtasWeb'
 include 'mtas-common'
 include 'mtas-web'
+include 'kylin-filter-log'
 

@@ -11,6 +11,8 @@ ext.libraries = [
         "pagehelper"                   : "com.github.pagehelper:pagehelper:5.3.0",
         "commons-lang3"                : "org.apache.commons:commons-lang3:3.12.0",
         "lombok"                       : "org.projectlombok:lombok:1.18.20",
+        "guava"                        : "com.google.guava:guava:31.1-jre",
+        "hutool"                       : "cn.hutool:hutool-all:5.8.15",
 
         //database
         "mybatis-spring-boot-starter"  : "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2",
