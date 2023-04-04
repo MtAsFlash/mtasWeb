@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -40,11 +41,12 @@ public class LogFileProcess {
         }
     }
 
-    public static final Set<String> errorSet = new HashSet<>();
+    public final Set<String> errorSet = new HashSet<>();
     /**
      * slow总值
      */
-    public static final Map<String, SlowObject> slowMap = new HashMap<>();
+    @Getter
+    private final Map<String, SlowObject> slowMap = new HashMap<>();
 
 
     public static final String slowFlag = "cost=";
@@ -54,35 +56,18 @@ public class LogFileProcess {
      * 开始筛日志
      *
      * @param inPath       输入的文件目录
-     * @param slowOutPath  筛选的slow日志输出位置
      * @param errorOutPath 筛选的错误日志输出位置
      */
-    public static void startFilter(String inPath, String slowOutPath, String errorOutPath) throws IOException {
+    public void startFilter(String inPath, String errorOutPath) throws IOException {
         try (Stream<String> inStream = Files.lines(Paths.get(inPath));
-             BufferedWriter slowWriter = Files.newBufferedWriter(Paths.get(slowOutPath));
              BufferedWriter errorWriter = Files.newBufferedWriter(Paths.get(errorOutPath))) {
             inStream.forEachOrdered(line -> {
                 filter(line, errorWriter);
             });
-            slowMap.forEach((caller, slowObject) -> {
-                String slowOutContent = caller +
-                        " " +
-                        slowObject.getMaxCost() +
-                        " " +
-                        slowObject.getSumCost() / slowObject.getCount() +
-                        " " +
-                        slowObject.getCount();
-                try {
-                    slowWriter.write(slowOutContent + "\n");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
         }
-
     }
 
-    public static void filter(String line, BufferedWriter errorWriter) {
+    public void filter(String line, BufferedWriter errorWriter) {
         LogEntity logEntity = LogEntity.build(line);
         if (logEntity == null) {
             return;
@@ -90,14 +75,14 @@ public class LogFileProcess {
         if (logEntity.getType().equals(LogType.ERROR.getType())) {
             filterError(logEntity, errorWriter);
         } else {
-            filterSlow(logEntity);
+//            filterSlow(logEntity);
         }
     }
 
-    public static void filterError(LogEntity entity, BufferedWriter errorWriter) {
+    public void filterError(LogEntity entity, BufferedWriter errorWriter) {
         String key = entity.getClassName();
         // 输出到错误日志文件
-        if (errorSet.contains(key) && ExcludeList.EXCLUDE_ERROR_KEY.contains(key)) {
+        if (errorSet.contains(key)) {
             // 如果已经存过一次,且属于不需要重复记录的非重要日志项,则跳过
             return;
         }
@@ -109,7 +94,7 @@ public class LogFileProcess {
         errorSet.add(key);
     }
 
-    public static void filterSlow(LogEntity entity) {
+    public void filterSlow(LogEntity entity) {
         String info = entity.getInfo();
         Pair<String, Integer> slowLog = parseSlowLog(info);
         if (slowLog == null) {
@@ -120,11 +105,16 @@ public class LogFileProcess {
         slowMap.computeIfAbsent(caller, k -> new SlowObject()).put(entity, cost);
     }
 
-    public static Pair<String, Integer> parseSlowLog(String str) {
+    public Pair<String, Integer> parseSlowLog(String str) {
         int indexOf = str.indexOf(slowFlag);
         if (indexOf > -1) {
             String sub1 = str.substring(indexOf + slowFlag.length());
-            String cost = sub1.substring(0, sub1.indexOf(","));
+            int costEnd = sub1.indexOf(",");
+            if (costEnd < 0) {
+                System.out.println("parseSlowLog error:data=" + str);
+                return null;
+            }
+            String cost = sub1.substring(0, costEnd);
             String sub2 = sub1.substring(sub1.indexOf(callerFlag) + callerFlag.length());
             int callerEnd = sub2.indexOf(",");
             String caller = sub2.substring(0, callerEnd > -1 ? callerEnd : sub2.length());
